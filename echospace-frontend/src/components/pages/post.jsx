@@ -22,13 +22,13 @@ const Post = () => {
     const fetchPost = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/posts/${postId}`
+          `${process.env.REACT_APP_BACKEND_URL}/api/posts/${postId}`
         );
         setPost(response.data);
 
         if (userId) {
           const response = await axios.get(
-            `http://localhost:4000/api/posts/${postId}/likes/data`,
+            `${process.env.REACT_APP_BACKEND_URL}/api/posts/${postId}/likes/data`,
             {
               params: { userId: userId },
             }
@@ -49,7 +49,7 @@ const Post = () => {
   const fetchComments = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/posts/${postId}/comments`
+        `${process.env.REACT_APP_BACKEND_URL}/api/posts/${postId}/comments`
       );
 
       setComments(response.data);
@@ -67,7 +67,7 @@ const Post = () => {
     try {
       const commentId = uuid4();
       const response = await axios.post(
-        `http://localhost:4000/api/posts/${postId}/comments/${commentId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/posts/${postId}/comments/${commentId}`,
         {
           text: newComment,
         }
@@ -83,15 +83,21 @@ const Post = () => {
   const handleLike = async () => {
     try {
       if (isLiked) {
-        await axios.post(`http://localhost:4000/api/posts/${postId}/unlike`, {
-          userId,
-        });
+        await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/posts/${postId}/unlike`,
+          {
+            userId,
+          }
+        );
         setLikesCount(likesCount - 1);
         setIsLiked(false);
       } else {
-        await axios.post(`http://localhost:4000/api/posts/${postId}/like`, {
-          userId,
-        });
+        await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/posts/${postId}/like`,
+          {
+            userId,
+          }
+        );
         setLikesCount(likesCount + 1);
         setIsLiked(true);
       }
@@ -102,7 +108,9 @@ const Post = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:4000/api/posts/${postId}`);
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/api/posts/${postId}`
+      );
       navigate("/");
     } catch (error) {
       console.error("Error deleting post:", error);

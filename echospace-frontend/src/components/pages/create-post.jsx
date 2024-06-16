@@ -31,7 +31,7 @@ const CreatePost = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/posts",
+        `${process.env.REACT_APP_BACKEND_URL}/api/posts`,
         postData
       );
       navigate(`/posts/${response.data.postId}`);

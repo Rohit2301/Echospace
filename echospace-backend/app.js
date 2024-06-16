@@ -34,6 +34,10 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.send("Welcome to Echospace server");
+});
+
 // Create User
 app.post("/api/users", async (req, res) => {
   const { name, mobileNo, email } = req.body;
@@ -75,7 +79,7 @@ app.get("/api/users/:userId", async (req, res) => {
     const users = await getUser(userId);
     res.status(200).json(users);
   } catch (error) {
-    res.status(500).json({ error: error.message }); 
+    res.status(500).json({ error: error.message });
   }
 });
 

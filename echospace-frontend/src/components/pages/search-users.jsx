@@ -10,7 +10,9 @@ const SearchUsers = () => {
   useEffect(() => {
     const fetchAllUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/users");
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/users`
+        );
         setInitialUsers(response.data);
       } catch (error) {
         console.error("Error fetching all users:", error);
@@ -24,7 +26,7 @@ const SearchUsers = () => {
     e.preventDefault();
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/search/users",
+        `${process.env.REACT_APP_BACKEND_URL}/api/search/users`,
         {
           params: { name: name },
         }

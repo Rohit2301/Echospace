@@ -17,7 +17,7 @@ const PostSummary = ({ post }) => {
       try {
         if (userId) {
           const response = await axios.get(
-            `http://localhost:4000/api/posts/${post.id}/likes/data`,
+            `${process.env.REACT_APP_BACKEND_URL}/api/posts/${post.id}/likes/data`,
             {
               params: { userId: userId },
             }
@@ -37,15 +37,21 @@ const PostSummary = ({ post }) => {
   const handleLike = async () => {
     try {
       if (isLiked) {
-        await axios.post(`http://localhost:4000/api/posts/${post.id}/unlike`, {
-          userId,
-        });
+        await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/posts/${post.id}/unlike`,
+          {
+            userId,
+          }
+        );
         setLikesCount(likesCount - 1);
         setIsLiked(false);
       } else {
-        await axios.post(`http://localhost:4000/api/posts/${post.id}/like`, {
-          userId,
-        });
+        await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/posts/${post.id}/like`,
+          {
+            userId,
+          }
+        );
         setLikesCount(likesCount + 1);
         setIsLiked(true);
       }

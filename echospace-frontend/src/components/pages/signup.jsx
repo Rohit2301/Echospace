@@ -59,7 +59,7 @@ const SignUp = () => {
     const password = data.get("password");
     const mobileNo = data.get("phoneNumber");
     await signUp({ auth, email, password, name });
-    await axios.post("http://localhost:4000/api/users", {
+    await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/users`, {
       name,
       mobileNo,
       email,
@@ -67,7 +67,6 @@ const SignUp = () => {
     // navigate(location.state?.from || "/", { replace: true });
     navigate("/");
   };
-  
 
   return (
     <ThemeProvider theme={theme}>

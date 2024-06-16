@@ -9,14 +9,16 @@ const PostsFeed = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/posts");
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/posts`
+        );
         const fetchedPosts = response.data;
 
         // Fetch likes data for each post
         const postsWithLikes = await Promise.all(
           fetchedPosts.map(async (post) => {
             const likesResponse = await axios.get(
-              `http://localhost:4000/api/posts/${post.id}/likes/data`
+              `${process.env.REACT_APP_BACKEND_URL}/api/posts/${post.id}/likes/data`
             );
             const { isLikedByUser, likesCount } = likesResponse.data;
             return { ...post, likesCount, isLiked: isLikedByUser };

@@ -19,13 +19,13 @@ const UserProfile = () => {
       try {
         // Fetch user details
         const userResponse = await axios.get(
-          `http://localhost:4000/api/users/${userId}`
+          `${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}`
         );
         setCurrentUser(userResponse.data);
 
         // Fetch following list
         const followingResponse = await axios.get(
-          `http://localhost:4000/api/users/${userId}/following`
+          `${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}/following`
         );
         setFollowing(followingResponse.data);
 
@@ -34,7 +34,7 @@ const UserProfile = () => {
 
         // Fetch followers list
         const followersResponse = await axios.get(
-          `http://localhost:4000/api/users/${userId}/followed`
+          `${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}/followed`
         );
         setFollowers(followersResponse.data);
       } catch (error) {
@@ -49,7 +49,7 @@ const UserProfile = () => {
       if (isFollowing) {
         // Unfollow user
         await axios.delete(
-          `http://localhost:4000/api/users/${userId}/unfollow`,
+          `${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}/unfollow`,
           {
             data: { followerId: userEmail },
           }
@@ -58,9 +58,12 @@ const UserProfile = () => {
         setFollowing(following.filter((id) => id !== userEmail));
       } else {
         // Follow user
-        await axios.post(`http://localhost:4000/api/users/${userId}/follow`, {
-          followerId: userEmail,
-        });
+        await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}/follow`,
+          {
+            followerId: userEmail,
+          }
+        );
         setIsFollowing(true);
         setFollowing([...following, userEmail]);
       }
@@ -79,7 +82,9 @@ const UserProfile = () => {
       const user = auths.currentUser;
       await deleteUser(user);
 
-      await axios.delete(`http://localhost:4000/api/users/${userId}`);
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}`
+      );
       navigate("/");
     } catch (error) {
       console.error("Error deleting user:", error);

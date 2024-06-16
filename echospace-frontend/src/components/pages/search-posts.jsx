@@ -10,7 +10,7 @@ const SearchPosts = () => {
     e.preventDefault();
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/search/posts",
+        `${process.env.REACT_APP_BACKEND_URL}/api/search/posts`,
         {
           params: { searchText },
         }
