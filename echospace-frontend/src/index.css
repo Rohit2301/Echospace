@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "SansationB";
+    src: url("../public/fonts/sansation/Sansation_Bold.ttf");
+  }
+  @font-face {
+    font-family: "SansationR";
+    src: url("../public/fonts/sansation/Sansation_Regular.ttf");
+  }
+  @font-face {
+    font-family: "PtSerifR";
+    src: url("../public/fonts/ptSerif/PTSerifProRg.OTF");
+  }
+  @font-face {
+    font-family: "PtSerifCapR";
+    src: url("../public/fonts/ptSerif/PTSerifProCaptRg.OTF");
+  }
+  @font-face {
+    font-family: "PtSerifBK";
+    src: url("../public/fonts/ptSerif/PTSerifProBk.OTF");
+  }
+  @font-face {
+    font-family: "FuturaBk";
+    src: url("../public/fonts/futura/Futura\ Book\ font.ttf");
+  }
+  @font-face {
+    font-family: "FuturaL";
+    src: url("../public/fonts/futura/futura\ light\ bt.ttf");
+  }
+  @font-face {
+    font-family: "FuturaMd";
+    src: url("../public/fonts/futura/futura\ medium\ bt.ttf");
+  }
+  .darkBlueBg {
+    background: linear-gradient(
+      72.45deg,
+      #000729 13.42%,
+      #001438 61.92%,
+      #002147 90.63%
+    );
+  }
+  .lightbg {
+    background: linear-gradient(
+      89.89deg,
+      #c8d4e3 0.11%,
+      #daf1ff 25.37%,
+      #e7fbff 51.89%,
+      #d1e6eb 78.4%,
+      #ede4f5 99.27%
+    );
+    mix-blend-mode: normal;
+  }
+  .lightBlueBg {
+    background: linear-gradient(
+      89.35deg,
+      #021a40 0.71%,
+      #08234c 19.48%,
+      #1d3258 48.19%,
+      #17315d 72.8%,
+      #3a4b71 99.16%
+    );
+  }
+}
+
+@layer utilities {
+  .navGetStartedBtn {
+    border: none;
+    outline: none;
+    position: relative;
+    border-radius: 20px;
+    background: linear-gradient(to right, rgb(16, 16, 16), rgb(193, 193, 193));
+    cursor: pointer;
+    z-index: 1;
+    filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.15));
+  }
+  .navGetStartedBtn::before {
+    content: "";
+    position: absolute;
+    top: 1.5px;
+    right: 1px;
+    bottom: 1px;
+    left: 2px;
+    background-color: white;
+    border-radius: 30px;
+    z-index: -1;
+  }
+  .navGetStartedBtn::after {
+    content: attr(data);
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1),
+      rgba(132, 132, 132, 1)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  .orangeBtn {
+    background: linear-gradient(
+      95.91deg,
+      rgba(227, 116, 71, 0.995464) -5.5%,
+      #f56f46 52.62%,
+      rgba(255, 86, 29, 0.99) 97.73%
+    );
+  }
+  .orangeBtn:hover {
+    cursor: pointer;
+    background: linear-gradient(
+      95.91deg,
+      rgba(201, 103, 63, 0.995464) -5.5%,
+      #d74f26 52.62%,
+      rgba(232, 58, 0, 0.99) 97.73%
+    );
+  }
+  .signup {
+    background-image: url("./assets/images/signup.jpg");
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  .signin {
+    background-image: url("https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"),
+      linear-gradient(
+        89.89deg,
+        #c8d4e3 0.11%,
+        #daf1ff 25.37%,
+        #e7fbff 51.89%,
+        #d1e6eb 78.4%,
+        #ede4f5 99.27%
+      );
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  img {
+    user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+}
