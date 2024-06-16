@@ -21,7 +21,7 @@ const CreatePost = () => {
     await uploadBytes(imageRef, image);
 
     const imageUrl = await getDownloadURL(imageRef);
-    const email = user.email;
+    const email = user?.email;
     const postData = {
       text,
       image: imageUrl,
