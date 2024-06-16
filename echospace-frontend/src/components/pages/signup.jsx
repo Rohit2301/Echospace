@@ -59,7 +59,7 @@ const SignUp = () => {
     const password = data.get("password");
     const mobileNo = data.get("phoneNumber");
     try {
-      await signUp({ auth, email, password, name });
+      signUp({ auth, email, password, name });
       await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/users`, {
         name,
         mobileNo,

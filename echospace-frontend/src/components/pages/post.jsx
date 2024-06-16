@@ -4,8 +4,8 @@ import axios from "axios";
 import { v4 as uuid4 } from "uuid";
 import { useEchospace } from "../../controllers/store";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Loader } from "../layouts/loader/loader";
 
 const Post = () => {
   const { postId } = useParams();
@@ -14,8 +14,9 @@ const Post = () => {
   const [newComment, setNewComment] = useState("");
   const [likesCount, setLikesCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
-  const [{ user }] = useEchospace();
+  const [{ user }, {}] = useEchospace();
   const userId = user?.email;
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,6 +41,8 @@ const Post = () => {
         fetchComments();
       } catch (error) {
         console.error("Error fetching post:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -117,8 +120,8 @@ const Post = () => {
     }
   };
 
-  if (!post) {
-    return <p>Loading...</p>;
+  if (loading) {
+    return <Loader />;
   }
 
   return (
@@ -136,7 +139,11 @@ const Post = () => {
               <div className="font-bold text-m mb-2">{post.text}</div>
               <div className="flex justify-between">
                 <button className="flex items-center mt-4" onClick={handleLike}>
-                  {isLiked ? <ThumbDownIcon /> : <ThumbUpIcon />}
+                  {isLiked ? (
+                    <ThumbUpIcon className="text-green-500" />
+                  ) : (
+                    <ThumbUpIcon className="text-lg" />
+                  )}
                   <span className="text-lg ml-2">{likesCount}</span>
                 </button>
                 <button className="mt-4 text-red-500" onClick={handleDelete}>

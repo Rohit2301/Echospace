@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import PostSummary from "./post-summary";
+import { useEchospace } from "../../../controllers/store";
+import { Loader } from "../../layouts/loader/loader";
 
 const PostsFeed = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  // const [, { setLoading }] = useEchospace();
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/api/posts`
         );
@@ -28,11 +33,15 @@ const PostsFeed = () => {
         setPosts(postsWithLikes);
       } catch (error) {
         console.error("Error fetching posts:", error);
+      } finally {
+        setLoading(false); // Set loading to false after setting posts
       }
     };
 
     fetchPosts();
   }, []);
+
+  if (loading) return <Loader />;
 
   return (
     <div className="relative flex flex-col justify-center items-center gap-y-8 lightbg">

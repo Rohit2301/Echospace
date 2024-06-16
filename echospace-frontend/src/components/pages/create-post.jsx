@@ -14,7 +14,6 @@ const CreatePost = () => {
 
   const handlePost = async (e) => {
     e.preventDefault();
-    setLoading(true);
     const imageName = uuidv4();
     const imageRef = ref(storage, `posts/${imageName}`);
 
@@ -30,6 +29,7 @@ const CreatePost = () => {
     };
 
     try {
+      setLoading(true);
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/api/posts`,
         postData
