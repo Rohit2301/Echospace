@@ -22,7 +22,7 @@ const Header = () => {
     return () => {
       unsubcribe();
     };
-  }, []);
+  }, [updateCurrentUser]);
 
   return (
     <header

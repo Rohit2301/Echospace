@@ -58,14 +58,17 @@ const SignUp = () => {
     const email = data.get("email");
     const password = data.get("password");
     const mobileNo = data.get("phoneNumber");
-    await signUp({ auth, email, password, name });
-    await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/users`, {
-      name,
-      mobileNo,
-      email,
-    });
-    // navigate(location.state?.from || "/", { replace: true });
-    navigate("/");
+    try {
+      await signUp({ auth, email, password, name });
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/users`, {
+        name,
+        mobileNo,
+        email,
+      });
+      navigate(location.state?.from || "/", { replace: true });
+    } catch (error) {
+      console.log("error");
+    }
   };
 
   return (

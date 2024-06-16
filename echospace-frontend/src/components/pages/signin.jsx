@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { auth } from "../../firebase";
 import { useEchospace } from "../../controllers/store";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -49,13 +49,14 @@ const theme = createTheme({
 const SignIn = () => {
   const [{ error }, { signIn }] = useEchospace();
   const navigate = useNavigate();
+  const location = useLocation();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     const password = data.get("password");
     signIn({ auth, email, password });
-    navigate("/");
+    navigate(location.state?.from || "/", { replace: true });
   };
 
   return (

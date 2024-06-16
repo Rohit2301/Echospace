@@ -9,6 +9,7 @@ import {
 defaults.devtools = true;
 
 const initialState = {
+  isLoggedIn: undefined,
   user: null,
   error: null,
   isLoading: false,
@@ -32,6 +33,7 @@ const actions = {
         );
         await updateProfile(auth.currentUser, { displayName: name });
         setState({
+          isLoggedIn: true,
           user: { email: userCredential.user.email, name, mobileNumber },
           error: null,
         });
@@ -52,7 +54,11 @@ const actions = {
           email,
           password
         );
-        setState({ user: userCredential.user.email, error: null });
+        setState({
+          isLoggedIn: true,
+          user: userCredential.user.email,
+          error: null,
+        });
       } catch (error) {
         setState({ error: error.message });
       } finally {
@@ -65,7 +71,7 @@ const actions = {
       setState({ isLoading: true });
       try {
         await signOut(auth);
-        setState({ user: null, error: null });
+        setState({ isLoggedIn: false, user: null, error: null });
       } catch (error) {
         setState({ error: error.message });
       } finally {
@@ -75,7 +81,11 @@ const actions = {
   updateCurrentUser:
     (user) =>
     ({ setState }) => {
-      setState({ user });
+      if (!!user) {
+        setState({ isLoggedIn: true, user });
+      } else {
+        setState({ isLoggedIn: false, user });
+      }
     },
 };
 

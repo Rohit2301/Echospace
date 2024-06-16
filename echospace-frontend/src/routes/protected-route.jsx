@@ -1,12 +1,18 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useEchospace } from "../controllers/store";
+import { Loader } from "../components/layouts/loader/loader";
 
 const ProtectedRoute = ({ children }) => {
-  const [{ user, isLoading }] = useEchospace();
+  const [{ isLoggedIn, user, isLoading }] = useEchospace();
   const location = useLocation();
+
+  if (isLoggedIn === undefined) {
+    return <Loader />;
+  }
+
   return (
     <>
-      {/* {isLoading === false &&
+      {isLoading === false &&
         (!!user === false ? (
           <Navigate
             to="/signUp"
@@ -15,8 +21,7 @@ const ProtectedRoute = ({ children }) => {
           />
         ) : (
           children
-        ))} */}
-      {children}
+        ))}
     </>
   );
 };

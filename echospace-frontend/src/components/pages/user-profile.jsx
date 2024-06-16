@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEchospace } from "../../controllers/store";
 import { getAuth, deleteUser } from "firebase/auth";
+import { Loader } from "../layouts/loader/loader";
 
 const UserProfile = () => {
   const { userId } = useParams();
@@ -92,7 +93,7 @@ const UserProfile = () => {
   };
 
   if (!currentUser) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   return (
