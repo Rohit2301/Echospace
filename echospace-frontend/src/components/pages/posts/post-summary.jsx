@@ -70,7 +70,11 @@ const PostSummary = ({ post }) => {
           <div class="font-bold text-m mb-2">{post.text}</div>
         </div>
         <button className="flex items-center mt-4" onClick={handleLike}>
-          {isLiked ? <ThumbDownIcon /> : <ThumbUpIcon />}
+          {isLiked ? (
+            <ThumbUpIcon className="text-green-500" />
+          ) : (
+            <ThumbUpIcon className="text-lg" />
+          )}
           <span className="text-lg ml-2">{likesCount}</span>
         </button>
       </div>
